@@ -1,7 +1,92 @@
-import React from 'react'
+import React, { FC, useState } from 'react';
+import validator from 'validator';
+import { useNavigate } from 'react-router-dom';
+import TextField from '../../components/atom/text-field/text-field';
+import AuthService from "../../service/auth-service"
 
-export default function Register() {
+const Register = () => {
+  const [fName, setFName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const navigate = useNavigate();
+
+  const validate = () => {
+    let isValid: boolean = true;
+
+    if (!validator.isEmail(email)) {
+      isValid = false;
+    }
+    if (!(password.length > 8 && password.length < 25)) {
+      isValid = false;
+    }
+    if (password !== confirmPassword) {
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  const register = async () => {
+    if (!validate()) return;
+
+    try {
+      await AuthService.register({
+        fName,
+        email,
+        password,
+      });
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleInputName = (value: string) => {
+    setFName(value);
+  }
+  const handleInputPassword = (value: string) => {
+    setPassword(value);
+  }
+  const handleInputEmail = (value: string) => {
+    setEmail(value);
+  }
+  const handleInputConfirmPassword = (value: string) => {
+    setConfirmPassword(value);
+  }
   return (
-    <div>register.page</div>
+    <div className='register-container'>
+      <div className='register-form-container'>
+        <form onSubmit={register}>
+          <TextField
+            type='text'
+            value={fName}
+            placeholder='Full Name'
+            onInput={handleInputName}
+          />
+          <TextField
+            type='email'
+            value={email}
+            placeholder='Email'
+            onInput={handleInputEmail}
+          />
+          <TextField
+            type='password'
+            value={password}
+            placeholder='Password'
+            onInput={handleInputPassword}
+          />
+          <TextField
+            type='password'
+            value={confirmPassword}
+            placeholder='Confirm Password'
+            onInput={handleInputConfirmPassword}
+          />
+          <button className='register-button'>Register</button>
+        </form>
+      </div>
+    </div>
   )
 }
+
+export default Register;

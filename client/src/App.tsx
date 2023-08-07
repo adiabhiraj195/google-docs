@@ -1,9 +1,12 @@
+import { FC } from 'react';
 import './App.css';
 
-function App() {
+import Register from './pages/register/register.page';
+
+const App: FC = () => {
   return (
-    <div className="App">
-      <h1>hello</h1>
+    <div className='App'>
+      <Register/>
     </div>
   );
 }
