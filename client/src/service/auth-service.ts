@@ -1,3 +1,4 @@
+// import { stringify } from "querystring";
 import API from "./api";
 
 const AuthService = {
@@ -6,7 +7,8 @@ const AuthService = {
         email: string,
         password: string,
     }) =>{
-        return API.post("register", payload);
+        const userDetail = JSON.stringify(payload);
+        return API.post("/user", userDetail);
     }
 }
 

@@ -17,7 +17,7 @@ const Register = () => {
     if (!validator.isEmail(email)) {
       isValid = false;
     }
-    if (!(password.length > 8 && password.length < 25)) {
+    if (!(password.length >= 8 && password.length <= 25)) {
       isValid = false;
     }
     if (password !== confirmPassword) {
@@ -27,8 +27,9 @@ const Register = () => {
     return isValid;
   }
 
-  const register = async () => {
-    if (!validate()) return;
+  const registerUser = async (e: any) => {
+    e.preventDefault();
+    // if (!validate()) return;
 
     try {
       await AuthService.register({
@@ -36,6 +37,7 @@ const Register = () => {
         email,
         password,
       });
+      console.log("register clicked");
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -57,7 +59,7 @@ const Register = () => {
   return (
     <div className='register-container'>
       <div className='register-form-container'>
-        <form onSubmit={register}>
+        <form >
           <TextField
             type='text'
             value={fName}
@@ -82,7 +84,7 @@ const Register = () => {
             placeholder='Confirm Password'
             onInput={handleInputConfirmPassword}
           />
-          <button className='register-button'>Register</button>
+          <button className='register-button' type='submit' onClick={registerUser}>Register</button>
         </form>
       </div>
     </div>

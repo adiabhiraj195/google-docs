@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         require: true,
+    },
+    verificationToken:{
+        type: String,
+        require:true
     }
 });
 
