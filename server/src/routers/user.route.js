@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { userController } from "../controller/user/user.controller.js";
+import { uservalidator } from "../validators/user.validator.js";
 
 const userRouter = Router();
 
-userRouter.post("/", userController.register);
+userRouter.post("/", uservalidator.register, userController.register);
 
 
 export default userRouter;

@@ -11,12 +11,12 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const validate = () => {
+  const validateData: ()=>boolean = () => {
     let isValid: boolean = true;
 
-    if (!validator.isEmail(email)) {
-      isValid = false;
-    }
+    // if (!(validator.isEmail(email))) {
+    //   isValid = false;
+    // }
     if (!(password.length >= 8 && password.length <= 25)) {
       isValid = false;
     }
@@ -29,7 +29,9 @@ const Register = () => {
 
   const registerUser = async (e: any) => {
     e.preventDefault();
-    // if (!validate()) return;
+    console.log("clicked");
+    
+    if (!validateData()) return;
 
     try {
       await AuthService.register({

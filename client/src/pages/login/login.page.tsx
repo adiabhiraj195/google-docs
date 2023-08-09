@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import validator from 'validator';
 import TextField from '../../components/atom/text-field/text-field';
+import AuthService from '../../service/auth-service';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    const validate = ()=>{
+    const validateData = ()=>{
         let isValid: boolean = true;
         if(!(validator.isEmail(email))){
             isValid = false;
@@ -15,6 +18,25 @@ const Login = () => {
             isValid = false;
         };
         return isValid;
+    }
+
+    const userLogin = async()=>{
+        if(!validateData()){
+            console.log("Details are not valid");
+            
+            return;
+        }
+        try {
+            await AuthService.login({
+                email, 
+                password
+            });
+            navigate("/main");
+            console.log("loged in");
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     const handleEmailInput = (value: string)=>{
@@ -37,7 +59,7 @@ const Login = () => {
                 type='password'
                 placeholder='Password'
             />
-            <button>Login</button>
+            <button onClick={userLogin}>Login</button>
         </div>
     )
 }
