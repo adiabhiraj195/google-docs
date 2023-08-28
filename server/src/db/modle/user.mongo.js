@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import docsSchema from "./docs.mongo";
 
 const userSchema = mongoose.Schema({
     fName: {
@@ -14,10 +15,13 @@ const userSchema = mongoose.Schema({
         type: String,
         require: true,
     },
-    verificationToken:{
+    verificationToken: {
         type: String,
-        require:true
-    }
+        require: true
+    },
+    isVerified: Boolean,
+    passwordResetToken: String,
+    documents: [docsSchema]
 });
 
 export default mongoose.model("User", userSchema);

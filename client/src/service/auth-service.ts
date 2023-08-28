@@ -15,7 +15,7 @@ const AuthService = {
         email: string,
         password: string
     }) =>{
-        return API.post("/login", payload);
+        return API.post("/auth/login", payload);
     }
 }
 

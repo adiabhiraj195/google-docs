@@ -23,7 +23,6 @@ const Login = () => {
     const userLogin = async()=>{
         if(!validateData()){
             console.log("Details are not valid");
-            
             return;
         }
         try {
