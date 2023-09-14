@@ -1,0 +1,42 @@
+.create-document-container {
+    width: 100vw;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    /* text-align: center; */
+    background-color: rgb(230, 230, 230);
+    padding: 20px 350px;
+}
+.create-document-container h3 {
+    font-weight: 400;
+    margin: 0px 6px;
+}
+.create-document-card-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+}
+.create-document-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.create-document-card h4 {
+    font-weight: 600;
+}
+.create-document-button {
+    /* width: 10rem; */
+    height: 12rem;
+    margin-bottom:10px; 
+    border: 1px solid rgb(156, 156, 156);
+    cursor: pointer;
+}   
+.create-document-button:hover{
+    border: 1px solid rgb(0, 76, 218);
+
+}
+.create-document-button img {
+    height: 100%;
+}

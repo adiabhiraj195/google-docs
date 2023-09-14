@@ -11,7 +11,7 @@ class AuthController {
         const { email, password } = req.body;
 
         const user = await userService.findUserByEmail(email);
-        console.log(user.dataValues.documents);
+        // console.log(user.dataValues.documents);
         if (!user) {
             return res.status(400).json({
                 error: "User is not found"

@@ -11,6 +11,7 @@ const useAuth = () => {
         setIsAuthenticated,
         email,
         userId,
+        accessToken
 
     } = useContext(AuthContext);
 
@@ -33,7 +34,8 @@ const useAuth = () => {
         login,
         email,
         userId,
-        logout
+        logout,
+        accessToken,
     }
 }
 
