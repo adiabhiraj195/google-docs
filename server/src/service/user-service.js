@@ -18,7 +18,7 @@ class UserService {
     }
 
     findUserByEmail = async (email) => {
-        const user = await db.User.findOne({ where: { email }, include: { model: db.Document}});
+        const user = await db.User.findOne({ where: { email } });
         return user;
     }
 

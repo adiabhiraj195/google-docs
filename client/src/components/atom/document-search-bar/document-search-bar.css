@@ -1,0 +1,32 @@
+.document-search-container {
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+    border-radius: 4px;
+    padding: 4px 10px;
+
+}
+.search-bar-focus{
+    background-color: rgba(128, 128, 128, 0);
+}
+.search-bar-unfocus{
+    background-color: rgba(128, 128, 128, 0.103);
+}
+.search-input{ 
+    width: 350px;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    margin: 0px 8px;
+    color: gray;
+    font-size: medium;
+}
+/* .search-input-focus{
+    background-color: #fff;
+}
+.search-input-unfocus{
+    background-color: rgba(128, 128, 128, 0.103);
+} */

@@ -6,4 +6,4 @@ const document = Router();
 
 document.post('/', authenticate, documentController.create);
 
-export {document}
+export default document;

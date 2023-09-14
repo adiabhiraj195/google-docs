@@ -1,0 +1,17 @@
+.user-detail-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.user-logo{
+    background-color: rgb(5, 100, 5);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}

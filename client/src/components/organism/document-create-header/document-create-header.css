@@ -1,0 +1,10 @@
+.document-create-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: auto;
+    padding: 8px 20px;
+    /* box-shadow: 0px 2px 6px #dbd7d7; */
+
+}

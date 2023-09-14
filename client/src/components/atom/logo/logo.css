@@ -1,0 +1,18 @@
+.logo-container {
+    display: flex;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    align-items: center;
+    border-radius: 50%;
+    transition:  0.3s;
+    padding: 3px;
+}
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.logo-container:hover{
+    background-color: lightgray;
+}

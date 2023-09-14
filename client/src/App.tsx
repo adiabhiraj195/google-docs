@@ -6,6 +6,7 @@ import Register from './pages/register/register.page';
 import Login from './pages/login/login.page';
 import MainPage from './pages/main/main.page';
 import DocumentEditor from './components/organism/document-editor/document-editor';
+import Create from './pages/document/create';
 
 const App: FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: FC = () => {
         <Route path='/login' Component={Login}/>
         <Route path='/main' Component={MainPage}/>
         <Route path='/document-editor' Component={DocumentEditor}/>
+        <Route path='document/create' Component={Create}/>
       </Routes>
     </div>
   );

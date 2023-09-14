@@ -1,8 +1,11 @@
 import React from 'react'
+import DocumentCreateHeader from '../../components/organism/document-create-header/documet-create-header';
 
-const Create = () =>{
+const Create = () => {
   return (
-    <div>create</div>
+    <div className='document-create-container'>
+      <DocumentCreateHeader />
+    </div>
   )
 }
 
