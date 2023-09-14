@@ -8,7 +8,8 @@ import {
 } from 'react';
 import {
     Editor,
-    EditorState
+    EditorState,
+    convertToRaw
 } from 'draft-js';
 
 interface EditorContextInterface {
@@ -39,7 +40,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
 
     const handleEditorChange = (editorState: EditorState) => {
         setEditorState(editorState);
-        console.log(editorState);
+        console.log(convertToRaw(editorState.getCurrentContent()));
     }
 
     const focusEditor = () => {

@@ -5,6 +5,7 @@ class UserController {
     register = async (req, res) => {
         const err = validationResult(req);
         if (!(err.isEmpty())) {
+            console.log(err)
             return res.status(400).json(err);
         };
 
@@ -12,8 +13,8 @@ class UserController {
 
         await userService.createUser(fName, email, password);
 
-        return res.status(200).json({
-            status: "created"
+        return res.status(201).json({
+            status: "ok"
         });
     }
 

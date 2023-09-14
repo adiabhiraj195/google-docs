@@ -6,7 +6,7 @@ class UserValidator {
         body("email")
             .isEmail()
             .normalizeEmail()
-            .withMessage("Must provide a valid eamil address"),
+            .withMessage("Must provide a valid email address"),
         body("email")
             .custom(async (value) => {
                 const user = await userService.findUserByEmail(value);

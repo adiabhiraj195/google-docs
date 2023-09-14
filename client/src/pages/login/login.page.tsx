@@ -26,10 +26,12 @@ const Login = () => {
             return;
         }
         try {
-            await AuthService.login({
+            const response = await AuthService.login({
                 email, 
                 password
             });
+            console.log(response);
+            localStorage.setItem('Token', response.data.accessToken)
             navigate("/main");
             console.log("loged in");
         } catch (error) {
