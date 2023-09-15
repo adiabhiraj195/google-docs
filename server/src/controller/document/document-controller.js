@@ -10,6 +10,28 @@ class DocumnetController {
         });
         return res.status(201).json(document);
     }
+    getAll = async (req, res) =>{
+        const documents = await db.Document.findAll({
+            where: {
+                userId: req.user.id,
+            }
+        });
+        const documentUser = await db.DocumentUser.findAll({
+            where: {
+                userId: req.user.id,
+            },
+            include: {
+                model: db.Document
+            }
+        });
+
+        const sharedDocument = documentUser.map((documentUser)=>{
+            documentUser.documnet
+        });
+        documents.push(...sharedDocument);
+        
+        return res.status(200).json(documents);
+    }
 }
 
 const documentController = new DocumnetController();

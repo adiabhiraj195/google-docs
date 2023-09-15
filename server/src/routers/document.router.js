@@ -5,5 +5,6 @@ import { documentController } from "../controller/document/document-controller.j
 const document = Router();
 
 document.post('/', authenticate, documentController.create);
+document.get('/', authenticate, documentController.getAll);
 
 export default document;

@@ -16,8 +16,8 @@ app.use(cors({
 app.use(router);
 // middleware to error handel;
 
-db.sequelize.sync({force: true})
-// db.sequelize.sync()
+// db.sequelize.sync({force: true})
+db.sequelize.sync()
 .then(result =>{
     // console.log(result);
     console.log("database is connected");

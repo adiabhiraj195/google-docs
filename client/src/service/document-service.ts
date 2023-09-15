@@ -1,8 +1,13 @@
 import API from "./api";
 
 const DocumentService = {
-    create : (accessToken: string)=>{
+    create: (accessToken: string) => {
         return API.post('/document', {}, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        })
+    },
+    documentList: (accessToken: string) => {
+        return API.get('/document', {
             headers: { Authorization: `Bearer ${accessToken}` },
         })
     },

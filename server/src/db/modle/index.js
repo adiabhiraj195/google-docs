@@ -14,7 +14,8 @@ const db = {
     Sequelize,
     sequelize,
     User,
-    Document
+    Document,
+    DocumentUser
 };
 
 export default db;

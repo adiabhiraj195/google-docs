@@ -14,17 +14,20 @@ const useAuth = () => {
         accessToken
 
     } = useContext(AuthContext);
+    // const localAT = localStorage.getItem('Token');
 
     const login = async (accessToken: string) => {
         const userData: any= await jwtDecode(accessToken);
         setAccessToken(accessToken);
         localStorage.setItem('Token', accessToken);
+        setAccessToken(localStorage.getItem('Token'));
         setUserId(userData.user.id);
         setEmail(userData.user.email);
         setIsAuthenticated(true);
         // console.log(userId, email);
         // console.log(userData)
     }
+    // setAccessToken(localAT);
 
     const logout = ()=>{
         console.log('click logout')
