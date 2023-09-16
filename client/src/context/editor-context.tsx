@@ -41,7 +41,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     const handleEditorChange = (editorState: EditorState) => {
         setEditorState(editorState);
         console.log(convertToRaw(editorState.getCurrentContent()));
-    }
+    } 
 
     const focusEditor = () => {
         if (editorRef === null || editorRef.current === null) return;

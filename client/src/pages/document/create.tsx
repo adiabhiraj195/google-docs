@@ -2,10 +2,10 @@ import React from 'react'
 import DocumentCreateHeader from '../../components/organism/document-create-header/documet-create-header';
 import CreateDocumentBtn from '../../components/atom/create-document-btn/create-document-btn';
 import Spinner from '../../components/atom/spinner/spinner';
-import useDocument from '../../hooks/useDocument';
+import useDocuments from '../../hooks/useDocuments';
 
 const Create = () => {
-  const {loading, documents} = useDocument();
+  const {loading, documents} = useDocuments();
   return (
     <div className='document-create-container'>
       <DocumentCreateHeader />

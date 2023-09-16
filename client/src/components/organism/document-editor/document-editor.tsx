@@ -6,11 +6,7 @@ const DocumentEditor = () => {
     const { editorState, editorRef, handleEditorChange, focusEditor } = useContext(EditorContext);
 
     return (
-        <div
-            className='editor-wrap'
-            onClick={focusEditor}
-        >
-            bshdgbl
+        <div className='editor-wrap' onClick={focusEditor}>
             <Editor
                 ref={editorRef}
                 editorState={editorState}

@@ -1,3 +1,4 @@
+import DocumentInterface from "../types/interface/document-interface";
 import API from "./api";
 
 const DocumentService = {
@@ -11,7 +12,16 @@ const DocumentService = {
             headers: { Authorization: `Bearer ${accessToken}` },
         })
     },
-
+    update: (accessToken: string, payload: DocumentInterface) => {
+        return API.put(`/document/${payload.id}`, payload, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        })
+    },
+    getDocumnet: (accessToken: string, documentId: number) => {
+        return API.get(`/document/${documentId}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        })
+    },
     addDocument: (accessToken: string, payload: {
         title: string,
         content: string

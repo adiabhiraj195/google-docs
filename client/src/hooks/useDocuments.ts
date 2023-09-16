@@ -3,7 +3,7 @@ import useAuth from './useAuth';
 import DocumentInterface from '../types/interface/document-interface';
 import DocumentService from '../service/document-service';
 
-const useDocument = () => {
+const useDocuments = () => {
     const [loading, setLoading] = useState(false);
     const [documents, setDocuments] = useState<Array<DocumentInterface>>([]);
     const { accessToken } = useAuth();
@@ -38,4 +38,4 @@ const useDocument = () => {
     }
 }
 
-export default useDocument;
+export default useDocuments;

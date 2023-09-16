@@ -1,0 +1,9 @@
+.document-menu-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+}
+.document-menu-container> div{
+    display: flex;
+}
