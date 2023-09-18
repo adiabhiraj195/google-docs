@@ -5,6 +5,7 @@ import useDocument from '../../hooks/useDocumnet';
 import { useParams } from 'react-router-dom';
 import { DocumentContext } from '../../context/document-context';
 import Spinner from '../../components/atom/spinner/spinner';
+import './document-page.css';
 
 const Document = () => {
   const {id: documentId} = useParams();

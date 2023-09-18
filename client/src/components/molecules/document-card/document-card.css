@@ -7,7 +7,6 @@
     margin-bottom: 15px;
 }
 .document-card:hover{
-    cursor: pointer;
     border: 1px solid blue;
 }
 
@@ -24,10 +23,16 @@
     padding: 4px 6px;
 }
 .doc-card-title {
-    font-size: 1rem;
+    font-size: 0.92rem;
     font-weight: 500;
     color: rgb(43, 43, 43);
     margin: 0px 4px;
+    transition: 0.3s ease-in-out;
+}
+.doc-card-title:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue
 }
 .card-detail-wrap{
     display: flex;

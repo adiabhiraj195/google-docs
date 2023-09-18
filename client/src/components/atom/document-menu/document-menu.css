@@ -1,0 +1,34 @@
+.document-card-menu-container {
+    position: relative;;
+}
+
+.menu-logo-container {
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    padding: 4px 2px;
+    border-radius: 50%;
+}
+.menu-logo-container:hover{
+    background: lightgray;
+}
+.document-menu{
+    position: absolute;
+    bottom: -100%;
+    left: -100%;
+    transform: translateX(-50%);
+    transform: translateY(50%);
+}
+.delete-card-btn{
+    border: none;
+    border-radius: 6px;
+    background-color: #e7e7e7;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 3px 5px;
+    color: rgb(46, 46, 46);
+}

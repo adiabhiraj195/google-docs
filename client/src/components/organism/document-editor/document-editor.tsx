@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { Editor } from "draft-js";
 import { EditorContext } from '../../../context/editor-context';
+import './document-editor.css';
 
 const DocumentEditor = () => {
     const { editorState, editorRef, handleEditorChange, focusEditor } = useContext(EditorContext);

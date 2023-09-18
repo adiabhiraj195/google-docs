@@ -32,22 +32,24 @@ const DocumentCard = ({
 
     const clickDocumentCard = (event: MouseEvent<HTMLDivElement>, documentId: number) => {
         const classList = (event.target as HTMLDivElement).classList;
-        console.log(classList)
-        
+
         if (!classList.contains('document-card-menu-btn') && !classList.contains('card-menu-logo')) {
             navigate(`/document/${documentId}`);
         }
     }
+    const clickDocumentTitle = () => {
+        navigate(`/document/${document.id}`);
+    }
     return (
         <div className='document-card'
-            onClick={(event) => clickDocumentCard(event, document.id)}
+            // onClick={(event) => clickDocumentCard(event, document.id)}
             key={document.id}
         >
             <div className='skeletion-wrap'>
                 {skeleton}
             </div>
             <div className='document-card-info-wrap'>
-                <p className='doc-card-title'>{document.title}</p>
+                <p className='doc-card-title' onClick={clickDocumentTitle}>{document.title}</p>
                 <div className='card-detail-wrap'>
                     <div className='logo-date-wrap'>
                         <div className='card-logo'>
@@ -73,7 +75,7 @@ const DocumentCard = ({
                     </div>
                     {document.userId === userId &&
                         <div className='document-card-menu-btn'>
-                            <DocumentMenu documentId={document.id}/>
+                            <DocumentMenu documentId={document.id} />
                         </div>
                     }
                 </div>

@@ -8,6 +8,9 @@ class DocumnetController {
         const document = await db.Document.create({
             userId: req.user?.id,
         });
+
+        document.title = "Undefined Doc";
+        document.save();
         return res.status(201).json(document);
     }
     getAll = async (req, res) => {
@@ -66,7 +69,7 @@ class DocumnetController {
     deleteDoc = async (req, res) => {
         if (!req.user) return res.sendStatus(401);
         const { id } = req.params;
-        
+
         await db.Document.destroy({
             where: {
                 id: id,
