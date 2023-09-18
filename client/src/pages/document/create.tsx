@@ -3,17 +3,32 @@ import DocumentCreateHeader from '../../components/organism/document-create-head
 import CreateDocumentBtn from '../../components/atom/create-document-btn/create-document-btn';
 import Spinner from '../../components/atom/spinner/spinner';
 import useDocuments from '../../hooks/useDocuments';
+import useAuth from '../../hooks/useAuth';
+import DocumentList from '../../components/organism/document-list/document-list';
 
 const Create = () => {
-  const {loading, documents} = useDocuments();
+  const { loading, documents } = useDocuments();
+  const { userId } = useAuth();
+
+  const recentDocuments = documents === null ? [] : documents?.filter(document => document.userId == userId);
+  const sharedDocuments = documents === null ? [] : documents.filter(document => document.userId !== userId);
   return (
     <div className='document-create-container'>
       <DocumentCreateHeader />
-      <CreateDocumentBtn/>
+      <CreateDocumentBtn />
       {
-        loading ? 
-        <Spinner/>:
-        <div> document</div>
+        loading ?
+          <Spinner /> :
+          <>
+            <DocumentList
+              listName='Recent Document'
+              documents={recentDocuments}
+            />
+            <DocumentList
+              listName='Shared Document'
+              documents={sharedDocuments}
+            />
+          </>
         //fetch document 
         //handle them as shared and owne
       }

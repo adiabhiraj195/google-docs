@@ -1,0 +1,15 @@
+.document-list-container{
+    width: 100%;
+    padding: 15px 200px;
+}
+.doc-list-title{
+    color: rgb(44, 44, 44);
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-left: 6px ;
+    margin-bottom: 10px;
+}
+.doc-list-cards-wrap{
+    display: flex;
+    flex-wrap: wrap;
+}

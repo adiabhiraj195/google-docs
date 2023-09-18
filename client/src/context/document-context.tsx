@@ -1,5 +1,7 @@
 import { createContext, useState, Dispatch, SetStateAction } from "react";
 import DocumentInterface from "../types/interface/document-interface";
+import useAuth from "../hooks/useAuth";
+import DocumentService from "../service/document-service";
 
 interface DocumentContextInterface {
     document: DocumentInterface | null;
@@ -7,14 +9,16 @@ interface DocumentContextInterface {
     setDocumentTitle: (title: string) => void;
     saving: boolean;
     setSaving: Dispatch<SetStateAction<boolean>>;
+    saveDocument: (updatedDocument: DocumentInterface) => Promise<void>;
 }
 
 const defaultValues = {
     document: null,
-    setDocument: ()=>{},
-    setDocumentTitle: ()=>{},
+    setDocument: () => { },
+    setDocumentTitle: () => { },
     saving: false,
-    setSaving: ()=>{},
+    setSaving: () => { },
+    saveDocument: async () => { }
 }
 
 export const DocumentContext = createContext<DocumentContextInterface>(defaultValues);
@@ -23,12 +27,29 @@ interface DocumentProviderInterface {
     children: JSX.Element;
 }
 
-export const DocumentProvider = ({children}: DocumentProviderInterface)=>{
+export const DocumentProvider = ({ children }: DocumentProviderInterface) => {
+    const { accessToken } = useAuth();
     const [document, setDocument] = useState<DocumentInterface | null>(defaultValues.document);
     const [saving, setSaving] = useState<boolean>(defaultValues.saving);
 
-    const setDocumentTitle = (title: string)=>{
-        setDocument({...document, title} as DocumentInterface);
+    const setDocumentTitle = (title: string) => {
+        setDocument({ ...document, title } as DocumentInterface);
+    }
+    const localAT = localStorage.getItem('Token');
+    const saveDocument = async (updatedDocument: DocumentInterface) => {
+        if (localAT === null) return;
+        // if (accessToken === null) return;
+
+        setSaving(true);
+        try {
+            await DocumentService.update(localAT, updatedDocument);
+            // await DocumentService.update(accessToken, updatedDocument);
+            setDocument(updatedDocument);
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setSaving(false);
+        }
     }
     return (
         <DocumentContext.Provider
@@ -38,6 +59,7 @@ export const DocumentProvider = ({children}: DocumentProviderInterface)=>{
                 setDocumentTitle,
                 saving,
                 setSaving,
+                saveDocument,
             }}
         >
             {children}

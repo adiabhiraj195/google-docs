@@ -41,7 +41,7 @@ class DocumnetController {
 
         const document = await documentService.findDocumentById(parseInt(id), parseInt(req.user.id));
         // console.log(document);
-        if(document === null ) return res.sendStatus(404);
+        if (document === null) return res.sendStatus(404);
 
         if (title !== undefined && title !== null) document.title = title;
         if (content !== undefined && content !== null) document.content = content;
@@ -52,16 +52,29 @@ class DocumnetController {
         return res.sendStatus(200);
     }
 
-    getOne = async(req, res)=>{
-        if(!req.user) return res.sendStatus(401);
+    getOne = async (req, res) => {
+        if (!req.user) return res.sendStatus(401);
 
-        const {id} = req.params;
+        const { id } = req.params;
 
         const document = await documentService.findDocumentById(parseInt(id), parseInt(req.user.id));
         // console.log(document, "this is document")
-        if(!document) return res.status(404);
+        if (!document) return res.status(404);
 
         return res.status(200).json(document);
+    }
+    deleteDoc = async (req, res) => {
+        if (!req.user) return res.sendStatus(401);
+        const { id } = req.params;
+        
+        await db.Document.destroy({
+            where: {
+                id: id,
+                userId: req.user?.id,
+            },
+        });
+
+        return res.sendStatus(200);
     }
 }
 

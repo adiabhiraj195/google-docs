@@ -9,7 +9,7 @@ const useDocuments = () => {
     const { accessToken } = useAuth();
     const localAT = localStorage.getItem('Token');
 
-    const loadDocument = async () => {
+    const loadDocuments = async () => {
         
         // if (accessToken === null) return;
         if (localAT === null) return;
@@ -27,7 +27,7 @@ const useDocuments = () => {
     }
 
     useEffect(() => {
-        loadDocument();
+        loadDocuments();
     }, [accessToken]);
 
     return {

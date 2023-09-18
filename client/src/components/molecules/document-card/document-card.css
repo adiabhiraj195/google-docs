@@ -1,0 +1,49 @@
+.document-card {
+    width: 170px;
+    height: auto;
+    border: 1px solid lightgray;
+    margin-left: 8px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.document-card:hover{
+    cursor: pointer;
+    border: 1px solid blue;
+}
+
+.skeletion-wrap{
+    padding: 8px ;
+    border-bottom: 1px solid lightgray;
+}
+.skeletion-line{
+    height: 3px;
+    background-color: rgba(128, 128, 128, 0.205);
+    margin: 6px 0px;
+}
+.document-card-info-wrap{
+    padding: 4px 6px;
+}
+.doc-card-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(43, 43, 43);
+    margin: 0px 4px;
+}
+.card-detail-wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo-date-wrap{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.card-logo{
+    width: 30px;
+}
+.document-date{
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: gray;
+}
