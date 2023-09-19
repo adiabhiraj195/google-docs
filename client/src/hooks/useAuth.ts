@@ -11,7 +11,9 @@ const useAuth = () => {
         setIsAuthenticated,
         email,
         userId,
-        accessToken
+        accessToken,
+        userName,
+        setUserName
 
     } = useContext(AuthContext);
     // const localAT = localStorage.getItem('Token');
@@ -23,6 +25,7 @@ const useAuth = () => {
         setAccessToken(localStorage.getItem('Token'));
         setUserId(userData.user.id);
         setEmail(userData.user.email);
+        setUserName(userData.user.userName);
         setIsAuthenticated(true);
         // console.log(userId, email);
         // console.log(userData)
@@ -39,6 +42,7 @@ const useAuth = () => {
         userId,
         logout,
         accessToken,
+        userName
     }
 }
 

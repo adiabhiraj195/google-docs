@@ -15,6 +15,8 @@ interface AuthContextInterface {
     setErrors: Dispatch<SetStateAction<Array<string>>>;
     userId: number | null;
     setUserId: Dispatch<SetStateAction<number | null>>;
+    userName: string | null;
+    setUserName: Dispatch<SetStateAction<string | null>>;
 }
 
 const defaultValues = {
@@ -32,6 +34,8 @@ const defaultValues = {
     setErrors: () => { },
     userId: null,
     setUserId: () => { },
+    userName: null,
+    setUserName: () => { }
 }
 
 export const AuthContext = createContext<AuthContextInterface>(defaultValues);
@@ -54,6 +58,7 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
     );
     const [errors, setErrors] = useState<Array<string>>(defaultValues.errors);
     const [userId, setUserId] = useState<number | null>(defaultValues.userId);
+    const [userName, setUserName] = useState<string | null>(defaultValues.userName);
 
     return (
         <AuthContext.Provider
@@ -72,6 +77,8 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
                 setErrors,
                 userId,
                 setUserId,
+                userName,
+                setUserName
             }}
         >
             {children}
