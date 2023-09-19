@@ -9,11 +9,11 @@ const DocumentSearchbar = () => {
             className={`${isFocused ? 'search-bar-focus' : 'search-bar-unfocus'
                 } document-search-container`}
         >
-            <div className="flex justify-center items-center px-4">
+            <div className="search-icon">
                 <AiOutlineSearch className="search-icon" />
             </div>
             <input
-                onFocus={() => setIsFocused(true)}
+                onFocus={() => setIsFocused(true)} 
                 onBlur={() => setIsFocused(false)}
                 type="text"
                 className={`${isFocused ? 'search-input-focus' : 'search-input-unfocus'

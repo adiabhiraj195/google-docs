@@ -2,8 +2,40 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100vw;
+    width: 100%;
+    padding: 2px 20px;
 }
 .document-menu-container> div{
     display: flex;
+}
+.document-management-btn-container{
+    display: flex;
+}
+.management-btn{
+    background: none;
+    border: none;
+    margin-right: 10px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: rgb(39, 39, 39);
+    cursor: pointer;
+}
+.management-btn:hover{
+    text-decoration: underline;
+    color: black;
+}
+.menu-title-container{
+    padding: 0px 8px;
+}
+.title-input{
+    border: none;
+    padding: 1px 4px;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+.saving-prop{
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: rgb(39, 39, 39);
+    margin: 0px 4px;
 }

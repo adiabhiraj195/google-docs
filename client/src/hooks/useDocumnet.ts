@@ -8,7 +8,7 @@ const useDocument = (documentId: number) => {
     const localAT = localStorage.getItem('Token');
     const [loading, setLoading] = useState(false);
     const [document, setDocument] = useState<DocumentInterface | null>(null);
-    // console.log(documentId , "useDocument")
+    // console.log(document , "useDocument");
     const loadDocument = async (accessToken: string, documentId: number) => {
         if (accessToken === null) return;
         setLoading(true);

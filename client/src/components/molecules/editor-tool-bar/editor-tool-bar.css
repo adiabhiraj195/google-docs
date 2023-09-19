@@ -1,7 +1,8 @@
 .editor-tool-bar{
     width: 100%;
     padding: 8px 20px;
-    border: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,13 +11,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 .undo-redo{
     margin-left: 10px;
     font-size: 1.2rem;
     color: gray;
+    display: flex;
     cursor: pointer;
+    align-items: center;
+
 }
 .undo-redo:hover{
     color: rgb(46, 46, 46);

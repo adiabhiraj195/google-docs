@@ -7,9 +7,11 @@ import DocumentMenu from '../../atom/document-menu/document-menu';
 
 interface DocumentCardInterface {
     document: DocumentInterface;
+    setDocuments: Function;
 }
 const DocumentCard = ({
     document,
+    setDocuments
 }: DocumentCardInterface) => {
 
     const { userId } = useAuth();
@@ -75,7 +77,10 @@ const DocumentCard = ({
                     </div>
                     {document.userId === userId &&
                         <div className='document-card-menu-btn'>
-                            <DocumentMenu documentId={document.id} />
+                            <DocumentMenu
+                                documentId={document.id}
+                                setDocuments={setDocuments}
+                            />
                         </div>
                     }
                 </div>

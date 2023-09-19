@@ -7,7 +7,7 @@ import useAuth from '../../hooks/useAuth';
 import DocumentList from '../../components/organism/document-list/document-list';
 
 const Create = () => {
-  const { loading, documents } = useDocuments();
+  const { loading, documents, setDocuments} = useDocuments();
   const { userId } = useAuth();
 
   const recentDocuments = documents === null ? [] : documents?.filter(document => document.userId == userId);
@@ -23,10 +23,12 @@ const Create = () => {
             <DocumentList
               listName='Recent Document'
               documents={recentDocuments}
+              setDocuments={setDocuments}
             />
             <DocumentList
               listName='Shared Document'
               documents={sharedDocuments}
+              setDocuments={setDocuments}
             />
           </>
         //fetch document 

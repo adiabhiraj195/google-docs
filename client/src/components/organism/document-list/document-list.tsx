@@ -4,11 +4,13 @@ import DocumentCard from '../../molecules/document-card/document-card';
 
 interface DocumentListInterface {
     listName: string;
-    documents: Array<DocumentInterface>
+    documents: Array<DocumentInterface>;
+    setDocuments: Function;
 }
 const DocumentList = ({
     listName,
-    documents
+    documents,
+    setDocuments
 }: DocumentListInterface) => {
     return (
         <div className='document-list-container'>
@@ -18,6 +20,7 @@ const DocumentList = ({
                     return (
                         <DocumentCard
                             document={document}
+                            setDocuments={setDocuments}
                         />
                     )
                 })}

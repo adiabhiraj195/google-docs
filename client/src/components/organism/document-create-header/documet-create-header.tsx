@@ -6,7 +6,10 @@ import UserDropDown from '../../atom/user-drop-down/user-drop-down';
 const DocumentCreateHeader = () => {
   return (
     <div className='document-create-header'>
-      <Logo />
+      <div className='create-logo-container'>
+        <Logo />
+        <h3>Docs</h3>
+      </div>
       <DocumentSearchbar />
       <UserDropDown />
     </div>

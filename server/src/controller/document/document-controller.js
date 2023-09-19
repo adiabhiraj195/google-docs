@@ -9,7 +9,7 @@ class DocumnetController {
             userId: req.user?.id,
         });
 
-        document.title = "Undefined Doc";
+        document.title = "Untitled Doc";
         document.save();
         return res.status(201).json(document);
     }

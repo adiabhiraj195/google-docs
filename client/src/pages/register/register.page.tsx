@@ -2,7 +2,8 @@ import React, { FC, useState } from 'react';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
 import TextField from '../../components/atom/text-field/text-field';
-import AuthService from "../../service/auth-service"
+import logoImage from '../../assets/black-logo.png';
+import AuthService from "../../service/auth-service";
 
 const Register = () => {
   const [fName, setFName] = useState<string>("");
@@ -11,7 +12,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const validateData: ()=>boolean = () => {
+  const validateData: () => boolean = () => {
     let isValid: boolean = true;
 
     // if (!(validator.isEmail(email))) {
@@ -30,7 +31,7 @@ const Register = () => {
   const registerUser = async (e: any) => {
     e.preventDefault();
     console.log("clicked");
-    
+
     if (!validateData()) return;
 
     try {
@@ -39,8 +40,8 @@ const Register = () => {
         email,
         password,
       });
-      console.log("register clicked");
-      navigate("/login");
+
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -58,36 +59,47 @@ const Register = () => {
   const handleInputConfirmPassword = (value: string) => {
     setConfirmPassword(value);
   }
+  const loginAccount = ()=>{
+    navigate('/');
+  }
   return (
-    <div className='register-container'>
-      <div className='register-form-container'>
-        <form >
-          <TextField
-            type='text'
-            value={fName}
-            placeholder='Full Name'
-            onInput={handleInputName}
-          />
-          <TextField
-            type='email'
-            value={email}
-            placeholder='Email'
-            onInput={handleInputEmail}
-          />
-          <TextField
-            type='password'
-            value={password}
-            placeholder='Password'
-            onInput={handleInputPassword}
-          />
+    <div className='auth-page'>
+      <div className='auth-container'>
+        <div className='auth-logo'>
+          <img src={logoImage}></img>
+        </div>
+        <h3 className='auth-heading'>Register!</h3>
+        <TextField
+          type='text'
+          value={fName}
+          placeholder='Full Name'
+          onInput={handleInputName}
+        />
+        <TextField
+          type='email'
+          value={email}
+          placeholder='Email'
+          onInput={handleInputEmail}
+        />
+        <TextField
+          type='password'
+          value={password}
+          placeholder='Password'
+          onInput={handleInputPassword}
+        />
+        <div className='password-input-container'>
           <TextField
             type='password'
             value={confirmPassword}
             placeholder='Confirm Password'
             onInput={handleInputConfirmPassword}
           />
-          <button className='register-button' type='submit' onClick={registerUser}>Register</button>
-        </form>
+        </div>
+        <div className='auth-btn-container'>
+          <button className=' auth-btn base-bg-btn' onClick={loginAccount}>Sign in</button>
+          <button className=' auth-btn blue-bg-btn' onClick={registerUser}>Register</button>
+        </div>
+
       </div>
     </div>
   )

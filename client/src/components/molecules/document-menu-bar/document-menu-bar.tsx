@@ -17,7 +17,7 @@ const DocumentMenuBar = () => {
         // setDocument,
     } = useContext(DocumentContext);
     const localAT = localStorage.getItem('Token');
-    const { id: docId } = useParams();
+    // const { id: docId } = useParams();
 
     const handleTitleOnBlur = async () => {
         // if (accessToken == null || document == null) return;
@@ -59,7 +59,7 @@ const DocumentMenuBar = () => {
                         <button className='management-btn'>Tools</button>
                         <button className='management-btn'>Add-ons</button>
                         <button className='management-btn'>Help</button>
-                        {saving && <p>Saving...</p>}
+                        {saving && <p className='saving-prop'>Saving...</p>}
                     </div>
                 </div>
             </div>

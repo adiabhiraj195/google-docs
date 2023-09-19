@@ -2,9 +2,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* width: 100vw; */
     height: auto;
     padding: 8px 20px;
-    /* box-shadow: 0px 2px 6px #dbd7d7; */
-
+}
+.create-logo-container{
+    display: flex;
+    align-items: center;
+}
+.create-logo-container> h3{
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: rgb(97, 97, 97);
+    margin-left: 6px;
 }

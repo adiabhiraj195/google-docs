@@ -7,12 +7,17 @@
     border-radius: 50%;
     transition:  0.3s;
     padding: 3px;
+    overflow: hidden;
 }
-.logo {
+.logo-container> img{
+    height: 150%;
+
+}
+/* .logo {
     width: 40px;
     height: 40px;
-}
+} */
 
-.logo-container:hover{
+/* .logo-container:hover{
     background-color: lightgray;
-}
+} */

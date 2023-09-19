@@ -1,0 +1,17 @@
+.document-editor-container{
+    width: 100%;
+    background-color: rgb(238, 238, 238);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 150px;
+}
+.editor-wrap{
+    border: 1px solid lightgray;
+    min-height: 500px;
+    width: 700px;
+    min-width: 500px;
+    background: white;
+    padding: 40px 36px;
+    border-radius: 10px;
+}

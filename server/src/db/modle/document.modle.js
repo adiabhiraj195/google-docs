@@ -13,7 +13,8 @@ const Document = sequelize.define('document', {
         type: DataTypes.STRING,
     },
     content: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT,
+
     },
     isPublic: {
         type: DataTypes.BOOLEAN,

@@ -8,13 +8,15 @@ import './document-menu.css';
 
 interface DocumentMenuInterface {
   documentId: number;
+  setDocuments: Function;
 }
 const DocumentMenu = ({
   documentId,
+  setDocuments,
 }: DocumentMenuInterface) => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const { accessToken } = useAuth();
-  const { setDocuments, setLoading } = useDocuments();
+  const { setLoading } = useDocuments();
   const localAT = localStorage.getItem('Token');
 
   // const handleOnBlurBtn = (event: FocusEvent<HTMLDivElement>) => {
