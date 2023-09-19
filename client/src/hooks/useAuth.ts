@@ -2,8 +2,10 @@ import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
 import jwtDecode from "jwt-decode";
 import { Token } from "../types/interface/token";
+import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
+    const navigate = useNavigate();
     const {
         setAccessToken,
         setUserId,
@@ -16,10 +18,9 @@ const useAuth = () => {
         setUserName
 
     } = useContext(AuthContext);
-    // const localAT = localStorage.getItem('Token');
 
     const login = async (accessToken: string) => {
-        const userData: any= await jwtDecode(accessToken);
+        const userData: any = await jwtDecode(accessToken);
         setAccessToken(accessToken);
         localStorage.setItem('Token', accessToken);
         setAccessToken(localStorage.getItem('Token'));
@@ -32,8 +33,20 @@ const useAuth = () => {
     }
     // setAccessToken(localAT);
 
-    const logout = ()=>{
-        console.log('click logout')
+    const localAT = localStorage.getItem('Token');
+    const logout = () => {
+        if(accessToken === null && localAT === null) return;
+        try {
+            setAccessToken(null);
+            localStorage.clear();
+            setUserId(null);
+            setEmail(null);
+            setUserName(null);
+            setIsAuthenticated(false);
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+        } 
     }
 
     return {
