@@ -1,6 +1,6 @@
 .editor-tool-bar{
     width: 100%;
-    padding: 8px 20px;
+    padding: 4px 20px;
     border-bottom: 1px solid lightgray;
     border-top: 1px solid lightgray;
     display: flex;
@@ -23,4 +23,22 @@
 }
 .undo-redo:hover{
     color: rgb(46, 46, 46);
+}
+.share-document-window-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #c2e7ff;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.share-document-window-btn> p{
+    margin: 0px 4px;
+}
+.share-document-window-btn:hover{
+    box-shadow: 0px 0px 4px gray;
+    background-color: #b1d6ee;
 }

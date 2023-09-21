@@ -10,6 +10,8 @@ interface DocumentContextInterface {
     saving: boolean;
     setSaving: Dispatch<SetStateAction<boolean>>;
     saveDocument: (updatedDocument: DocumentInterface) => Promise<void>;
+    shareDocWindow: boolean;
+    setShareDocWindow: Dispatch<SetStateAction<boolean>>;
 }
 
 const defaultValues = {
@@ -18,7 +20,9 @@ const defaultValues = {
     setDocumentTitle: () => { },
     saving: false,
     setSaving: () => { },
-    saveDocument: async () => { }
+    saveDocument: async () => { },
+    shareDocWindow: false,
+    setShareDocWindow: ()=>{},
 }
 
 export const DocumentContext = createContext<DocumentContextInterface>(defaultValues);
@@ -31,6 +35,7 @@ export const DocumentProvider = ({ children }: DocumentProviderInterface) => {
     const { accessToken } = useAuth();
     const [document, setDocument] = useState<DocumentInterface | null>(defaultValues.document);
     const [saving, setSaving] = useState<boolean>(defaultValues.saving);
+    const [shareDocWindow, setShareDocWindow] = useState<boolean>(defaultValues.shareDocWindow);
 
     const setDocumentTitle = (title: string) => {
         setDocument({ ...document, title } as DocumentInterface);
@@ -60,6 +65,8 @@ export const DocumentProvider = ({ children }: DocumentProviderInterface) => {
                 saving,
                 setSaving,
                 saveDocument,
+                shareDocWindow,
+                setShareDocWindow,
             }}
         >
             {children}
