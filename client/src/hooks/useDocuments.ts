@@ -10,15 +10,15 @@ const useDocuments = () => {
     const localAT = localStorage.getItem('Token');
 
     const loadDocuments = async () => {
-        
+
         // if (accessToken === null) return;
         if (localAT === null) return;
         try {
             setLoading(true);
             // const response = await DocumentService.documentList(accessToken);
             const response = await DocumentService.documentList(localAT);
-            setDocuments(response.data);
-            console.log(response.data)
+            setDocuments(response.data as Array<DocumentInterface>);
+            // console.log(response.data)
         } catch (error) {
             console.log(error)
         } finally {

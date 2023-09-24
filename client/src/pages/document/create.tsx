@@ -1,4 +1,3 @@
-import React from 'react'
 import DocumentCreateHeader from '../../components/organism/document-create-header/documet-create-header';
 import CreateDocumentBtn from '../../components/atom/create-document-btn/create-document-btn';
 import Spinner from '../../components/atom/spinner/spinner';
@@ -9,9 +8,10 @@ import DocumentList from '../../components/organism/document-list/document-list'
 const Create = () => {
   const { loading, documents, setDocuments} = useDocuments();
   const { userId } = useAuth();
-
-  const recentDocuments = documents === null ? [] : documents?.filter(document => document.userId == userId);
-  const sharedDocuments = documents === null ? [] : documents.filter(document => document.userId !== userId);
+// console.log(userId, 'userId');
+// console.log(documents, 'documents');
+  const recentDocuments = documents === null ? [] : documents.filter((document) => document.userId === userId);
+  const sharedDocuments = documents === null ? [] : documents.filter((document) => document.userId !== userId);
   return (
     <div className='document-create-container'>
       <DocumentCreateHeader />

@@ -21,6 +21,8 @@ const useAuth = () => {
 
     const login = async (accessToken: string) => {
         const userData: any = await jwtDecode(accessToken);
+        console.log(userData);
+        
         setAccessToken(accessToken);
         localStorage.setItem('Token', accessToken);
         setAccessToken(localStorage.getItem('Token'));

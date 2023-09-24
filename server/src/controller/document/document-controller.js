@@ -19,19 +19,21 @@ class DocumnetController {
                 userId: req.user.id,
             }
         });
-        const documentUser = await db.DocumentUser.findAll({
+        // console.log(documents, 'documents')
+        const documentUsers = await db.DocumentUser.findAll({
             where: {
                 userId: req.user.id,
             },
             include: {
                 model: db.Document
             }
+        }); 
+        // sharedDocument
+        documentUsers.map((documentUser) => {
+            documentUser.document
+            documents.push(documentUser.document);
+            // console.log(documentUser.document, 'maped document')
         });
-
-        const sharedDocument = documentUser.map((documentUser) => {
-            documentUser.documnet
-        });
-        documents.push(...sharedDocument);
 
         return res.status(200).json(documents);
     }

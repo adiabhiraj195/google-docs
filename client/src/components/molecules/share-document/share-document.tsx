@@ -1,9 +1,15 @@
 import './share-document.css';
-import { useContext, useState, useRef, useEffect ,MouseEvent} from 'react';
+import { useContext, useState, useRef, useEffect, MouseEvent } from 'react';
 import { DocumentContext } from '../../../context/document-context';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FiSettings } from 'react-icons/fi';
 import TextField from '../../atom/text-field/text-field';
+import PermissionEnum from '../../../types/enums/permission-enum';
+import validator from 'validator';
+import useAuth from '../../../hooks/useAuth';
+import DocumentUserService from '../../../service/document-user-service';
+import DocumentUserInterface from '../../../types/interface/document-user-interface';
+import DocumentInterface from '../../../types/interface/document-interface';
 
 interface ShareDocumentInterface {
     title: string;
@@ -12,16 +18,50 @@ interface ShareDocumentInterface {
 const ShareDocument = ({
     title,
 }: ShareDocumentInterface) => {
-    const { shareDocWindow, setShareDocWindow } = useContext(DocumentContext);
+    const { setShareDocWindow, document, setSaving, setDocument } = useContext(DocumentContext);
     const [shareEmail, setShareEmail] = useState('');
+    const { accessToken } = useAuth();
+
+    const shareDocument = async () => {
+        if (shareEmail === '' ||
+            !validator.isEmail(shareEmail) ||
+            accessToken === null ||
+            document === null
+        ) return;
+
+        const payload = {
+            email: shareEmail,
+            documentId: document.id,
+            permission: PermissionEnum.EDIT,
+        };
+
+        setSaving(true);
+        try {
+            const response = await DocumentUserService.create(accessToken, payload);
+            const documentUser = response.data as DocumentUserInterface;
+            // todo - set tost 
+
+            setDocument({
+                ...document,
+                // users: document.users?.push(documentUser)
+                users: [...document?.users, documentUser]
+            // } as unknown as DocumentInterface);
+            } as DocumentInterface);
+        } catch (error) {
+            console.log(error);
+        } finally{
+            setSaving(false);
+        }
+    }
 
     const onBlurShare = (event: MouseEvent<HTMLDivElement>) => {
         const classList = (event.target as HTMLDivElement).classList;
-        if(!classList.contains('share-document-container')){
+        if (!classList.contains('share-document-container')) {
             setShareDocWindow(false);
         }
     }
-    const handleEmailInpute = (value: string)=>{
+
+    const handleEmailInpute = (value: string) => {
         setShareEmail(value);
     }
     return (
@@ -37,7 +77,7 @@ const ShareDocument = ({
                             <FiSettings />
                         </div>
                     </div>
-                    <TextField 
+                    <TextField
                         placeholder='Share to Email'
                         value={shareEmail}
                         onInput={handleEmailInpute}
@@ -50,8 +90,8 @@ const ShareDocument = ({
                         </div>
                     </div>
                     <div className='share-btn-wrap'>
-                        <button className='auth-btn base-bg-btn'>Copy link</button> 
-                        <button className='auth-btn blue-bg-btn'>Share</button> 
+                        <button className='auth-btn base-bg-btn'>Copy link</button>
+                        <button className='auth-btn blue-bg-btn' onClick={shareDocument}>Share</button>
                     </div>
                 </div>
             </div>
