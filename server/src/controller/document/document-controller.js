@@ -4,13 +4,15 @@ import db from "../../db/modle/index.js";
 
 class DocumnetController {
     create = async (req, res) => {
-        // console.log(req.user.id)
+        console.log(req.user.id, 'on create user id');
         const document = await db.Document.create({
-            userId: req.user?.id,
+            userId: req.user.id,
         });
 
+        // console.log(document,'before title set')
         document.title = "Untitled Doc";
         document.save();
+        // console.log('after title set')
         return res.status(201).json(document);
     }
     getAll = async (req, res) => {
@@ -19,7 +21,6 @@ class DocumnetController {
                 userId: req.user.id,
             }
         });
-        // console.log(documents, 'documents')
         const documentUsers = await db.DocumentUser.findAll({
             where: {
                 userId: req.user.id,
@@ -27,14 +28,15 @@ class DocumnetController {
             include: {
                 model: db.Document
             }
-        }); 
+        });
         // sharedDocument
         documentUsers.map((documentUser) => {
             documentUser.document
             documents.push(documentUser.document);
-            // console.log(documentUser.document, 'maped document')
+            // console.log(documentUser, 'maped document')
         });
 
+        // console.log(documents, 'documents')
         return res.status(200).json(documents);
     }
     update = async (req, res) => {
@@ -61,7 +63,7 @@ class DocumnetController {
         if (!req.user) return res.sendStatus(401);
 
         const { id } = req.params;
-
+        // console.log(id, req.user.id);
         const document = await documentService.findDocumentById(parseInt(id), parseInt(req.user.id));
         // console.log(document, "this is document")
         if (!document) return res.status(404);
@@ -72,6 +74,12 @@ class DocumnetController {
         if (!req.user) return res.sendStatus(401);
         const { id } = req.params;
 
+        await db.DocumentUser.destroy({
+            where: {
+                documentId: id,
+                userId: req.user?.id,
+            },
+        });
         await db.Document.destroy({
             where: {
                 id: id,

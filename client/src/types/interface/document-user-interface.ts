@@ -6,9 +6,8 @@ interface DocumentUserInterface {
     documentId: number;
     createdAt: Date;
     updatedAt: Date;
-    user: {
-        email: string;
-    }
+    email: string;
+    id: number
 }
 
 export default DocumentUserInterface;

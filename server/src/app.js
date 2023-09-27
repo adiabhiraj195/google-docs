@@ -14,7 +14,7 @@ app.use(cors({
 }));
 
 app.use(router);
-// middleware to error handel;
+// middleware to error handel;  
 
 // db.sequelize.sync({force: true})
 db.sequelize.sync()

@@ -7,6 +7,7 @@ import { DocumentUser } from "./document-user.modle.js";
 Document.belongsTo(User);
 User.hasMany(Document);
 DocumentUser.belongsTo(User);
+User.hasMany(DocumentUser)
 DocumentUser.belongsTo(Document);
 Document.hasMany(DocumentUser);
 

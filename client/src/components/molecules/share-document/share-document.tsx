@@ -40,16 +40,17 @@ const ShareDocument = ({
             const response = await DocumentUserService.create(accessToken, payload);
             const documentUser = response.data as DocumentUserInterface;
             // todo - set tost 
-
+            console.log(documentUser, 'doc user from server');
             setDocument({
                 ...document,
                 // users: document.users?.push(documentUser)
-                users: [...document?.users, documentUser]
+                users: [...document.users, documentUser as DocumentUserInterface],
             // } as unknown as DocumentInterface);
             } as DocumentInterface);
         } catch (error) {
             console.log(error);
         } finally{
+            console.log(document);
             setSaving(false);
         }
     }

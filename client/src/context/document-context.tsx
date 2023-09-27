@@ -12,6 +12,8 @@ interface DocumentContextInterface {
     saveDocument: (updatedDocument: DocumentInterface) => Promise<void>;
     shareDocWindow: boolean;
     setShareDocWindow: Dispatch<SetStateAction<boolean>>;
+    currentUsers: Set<string>;
+    setCurrentUsers: Dispatch<SetStateAction<Set<string>>>;
 }
 
 const defaultValues = {
@@ -23,6 +25,8 @@ const defaultValues = {
     saveDocument: async () => { },
     shareDocWindow: false,
     setShareDocWindow: ()=>{},
+    currentUsers: new Set<string>(),
+    setCurrentUsers: ()=>{},
 }
 
 export const DocumentContext = createContext<DocumentContextInterface>(defaultValues);
@@ -36,7 +40,7 @@ export const DocumentProvider = ({ children }: DocumentProviderInterface) => {
     const [document, setDocument] = useState<DocumentInterface | null>(defaultValues.document);
     const [saving, setSaving] = useState<boolean>(defaultValues.saving);
     const [shareDocWindow, setShareDocWindow] = useState<boolean>(defaultValues.shareDocWindow);
-
+    const [currentUsers, setCurrentUsers] = useState<Set<string>>(defaultValues.currentUsers);
     const setDocumentTitle = (title: string) => {
         setDocument({ ...document, title } as DocumentInterface);
     }
@@ -67,6 +71,8 @@ export const DocumentProvider = ({ children }: DocumentProviderInterface) => {
                 saveDocument,
                 shareDocWindow,
                 setShareDocWindow,
+                currentUsers,
+                setCurrentUsers
             }}
         >
             {children}

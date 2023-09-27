@@ -1,5 +1,6 @@
 import db from "../db/modle/index.js";
 import { Op } from "sequelize";
+import { Document } from "../db/modle/document.modle.js";
 
 class DocumentService {
     findDocumentById = async (id, userId) => {
@@ -8,7 +9,7 @@ class DocumentService {
                 [Op.or]: [
                     {
                         id: id,
-                        userId,
+                        userId: userId,
                     },
                     {
                         id: id,
@@ -17,6 +18,7 @@ class DocumentService {
                 ]
             },
         });
+        // console.log(document, 'this is finded doc')
 
         if(!document){
             const sharedDocument = await db.DocumentUser.findAll({
@@ -25,12 +27,12 @@ class DocumentService {
                     userId: userId
                 },
                 include: {
-                    model: db.Document
+                    model: Document
                 },
             });
 
             if(!sharedDocument) return null;
-
+            // console.log(sharedDocument, "This is shared doc");
             document = sharedDocument.document;
         }
 

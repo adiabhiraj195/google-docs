@@ -5,10 +5,14 @@ import { BiUndo, BiRedo } from 'react-icons/bi';
 import { EditorState } from 'draft-js';
 import { MdLockOutline } from 'react-icons/md';
 import { DocumentContext } from '../../../context/document-context';
+// import SharedUsers from '../shared-users/shared-users';
+import ShareUser from '../../atom/share-user/share-user';
+import useAuth from '../../../hooks/useAuth';
 
 const EditorToolBar = () => {
   const { editorState, setEditorState } = useContext(EditorContext);
-  const { setShareDocWindow } = useContext(DocumentContext);
+  const { setShareDocWindow, document } = useContext(DocumentContext);
+  const { userId } = useAuth();
 
   const handleUndo = () => {
     setEditorState(EditorState.undo(editorState));
@@ -17,7 +21,7 @@ const EditorToolBar = () => {
   const handleRedo = () => {
     setEditorState(EditorState.redo(editorState));
   }
-  const handleShareBtn = ()=>{
+  const handleShareBtn = () => {
     setShareDocWindow(true);
   }
   return (
@@ -31,10 +35,24 @@ const EditorToolBar = () => {
         </div>
       </div>
       <div className='tool-bar-operation-wrap'>
-        <div className='share-document-window-btn' onClick={handleShareBtn}>
+        <div className='shared-user-container'>
+          {document?.users?.map((user) => {
+            return (
+              <ShareUser
+                key={user?.id}
+                id={user?.id as number}
+                email={user?.email as string}
+              />)
+          })}
+        </div>
+        <button
+          className='share-document-window-btn'
+          onClick={handleShareBtn}
+          disabled={userId === document?.userId ? false : true}
+        >
           <MdLockOutline />
           <p>Share</p>
-        </div>
+        </button>
       </div>
     </div>
   )

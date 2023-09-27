@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../config/db.config.js";
-import { DocumentUser } from "./document-user.modle.js";
 
 const Document = sequelize.define('document', {
     id: {
@@ -20,6 +19,9 @@ const Document = sequelize.define('document', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
+    // userId: {
+    //     type: DataTypes.NUMBER,
+    // }
     // users: {
     //     type: DataTypes.ARRAY
     // }

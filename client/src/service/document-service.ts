@@ -17,7 +17,7 @@ const DocumentService = {
             headers: { Authorization: `Bearer ${accessToken}` },
         })
     },
-    getDocumnet: (accessToken: string, documentId: number) => {
+    getDocument: (accessToken: string, documentId: number) => {
         return API.get(`/document/${documentId}`, {
             headers: { Authorization: `Bearer ${accessToken}` },
         })

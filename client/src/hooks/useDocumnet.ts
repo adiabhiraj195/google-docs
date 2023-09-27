@@ -14,7 +14,8 @@ const useDocument = (documentId: number) => {
         setLoading(true);
 
         try {
-            const response = await DocumentService.getDocumnet(accessToken, documentId);
+            const response = await DocumentService.getDocument(accessToken, documentId);
+            console.log(response, "document")
             setDocument(response.data as DocumentInterface);
         } catch (error) {
             console.log(error);
@@ -31,7 +32,7 @@ const useDocument = (documentId: number) => {
         loadDocument(localAT, documentId)
     }, [accessToken, documentId]);
 
-    return{
+    return {
         document,
         loading
     }

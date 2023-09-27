@@ -6,10 +6,11 @@ import useAuth from '../../hooks/useAuth';
 import DocumentList from '../../components/organism/document-list/document-list';
 
 const Create = () => {
-  const { loading, documents, setDocuments} = useDocuments();
+  const { loading, documents, setDocuments } = useDocuments();
   const { userId } = useAuth();
-// console.log(userId, 'userId');
-// console.log(documents, 'documents');
+  console.log(userId, 'userId');
+  // console.log(documents, 'documents');
+  // documents.map(document => console.log(document?.users))
   const recentDocuments = documents === null ? [] : documents.filter((document) => document.userId === userId);
   const sharedDocuments = documents === null ? [] : documents.filter((document) => document.userId !== userId);
   return (

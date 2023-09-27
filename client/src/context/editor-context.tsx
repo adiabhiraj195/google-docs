@@ -17,6 +17,10 @@ import {
 } from 'draft-js';
 import { DocumentContext } from './document-context';
 import DocumentInterface from '../types/interface/document-interface';
+import { io } from 'socket.io-client';
+import useAuth from '../hooks/useAuth';
+import { BASE_URL } from '../service/api';
+import SocketEvents from '../types/enums/SocketEvents-enum';
 
 interface EditorContextInterface {
     editorState: EditorState;
@@ -24,6 +28,7 @@ interface EditorContextInterface {
     handleEditorChange: (editorState: EditorState) => void;
     editorRef: null | MutableRefObject<null | Editor>;
     focusEditor: () => void;
+    socket: MutableRefObject<any> | null
 }
 
 const defaultValue = {
@@ -31,7 +36,8 @@ const defaultValue = {
     setEditorState: () => { },
     handleEditorChange: () => { },
     editorRef: null,
-    focusEditor: () => { }
+    focusEditor: () => { },
+    socket: null
 }
 
 export const EditorContext = createContext<EditorContextInterface>(defaultValue);
@@ -46,13 +52,17 @@ let saveInterval: null | NodeJS.Timer = null;
 export const EditorProvider = ({ children }: EditorProviderInterface) => {
     const [editorState, setEditorState] = useState(defaultValue.editorState);
     const editorRef = useRef<null | Editor>(defaultValue.editorRef);
-
-    const { document, setDocument, saveDocument, setSaving } = useContext(DocumentContext);
+    const socket = useRef<any>(defaultValue.socket);
+    const { document, setDocument, saveDocument, setSaving, setCurrentUsers } = useContext(DocumentContext);
+    // const { accessToken } = useAuth();
+    const accessToken = localStorage.getItem('Token');
 
     const handleEditorChange = (editorState: EditorState) => {
         setEditorState(editorState);
-
         const content = convertToRaw(editorState.getCurrentContent());
+
+        socket.current.emit(SocketEvents.SEND_CHANGES, content);
+
         const updatedDocument = {
             ...document,
             content: JSON.stringify(content)
@@ -75,8 +85,9 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
         editorRef.current.focus();
     }
 
-    useEffect(()=>{
-        if(document === null || document.content ===null) return;
+    //Update document state
+    useEffect(() => {
+        if (document === null || document.content === null) return;
 
         try {
             const contentState = convertFromRaw(JSON.parse(document.content) as RawDraftContentState);
@@ -85,7 +96,62 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
         } catch (error) {
             console.log(error);
         }
-    }, [document])
+    }, [document]);
+
+    //Socket connection
+    useEffect(() => {
+        if (
+            document === null ||
+            accessToken === null ||
+            socket === null ||
+            (socket.current !== null && socket.current.connected)
+        )
+            return;
+
+        socket.current = io(BASE_URL, {
+            query: { documentId: document.id, accessToken },
+        }).connect();
+
+    }, [document, accessToken, socket]);
+
+    //Disconnect Socket
+    useEffect(() => {
+        if (socket.current === null) return;
+        // may be return a function
+        return () => socket.current.disconnect();
+    }, []);
+
+    //Recieve changes
+    useEffect(() => {
+        if (socket.current === null) return;
+
+        const receiveHandler = (rawContentState: RawDraftContentState) => {
+            const rawContent = convertFromRaw(rawContentState);
+            const newEditorState = EditorState.createWithContent(rawContent);
+            setEditorState(newEditorState);
+        }
+
+        socket.current.on(SocketEvents.RECEIVE_CHANGES, receiveHandler);
+
+        return () => {
+            socket.current.off(SocketEvents.RECEIVE_CHANGES, receiveHandler);
+        }
+    }, [socket.current]);
+
+    //Update current users 
+    useEffect(() => {
+        if (socket.current === null) return;
+
+        const usersHandler = (currentUsers: Array<string>) => {
+            setCurrentUsers(new Set<string>(currentUsers));
+        };
+
+        socket.current.on(SocketEvents.CURRENT_USERS_UPDATE, usersHandler);
+
+        return () => {
+            socket.current.off(SocketEvents.CURRENT_USERS_UPDATE, usersHandler);
+        }
+    }, [socket.current]);
 
     return (
         <EditorContext.Provider
@@ -94,7 +160,8 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
                 setEditorState,
                 handleEditorChange,
                 editorRef,
-                focusEditor
+                focusEditor,
+                socket
             }}
         >
             {children}

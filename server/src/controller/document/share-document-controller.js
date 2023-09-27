@@ -28,6 +28,7 @@ class ShareDocumentController {
             documentId: id,
             userId: sharedUser.id,
             permission: permission,
+            email: email,
         });
 
         // mail service must
