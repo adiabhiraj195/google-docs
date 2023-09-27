@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
     console.log('connected to frontend');
     const accessToken = socket.handshake.query.accessToken;
     const documentId = socket.handshake.query.documentId;
-    
+
     if (!accessToken || !documentId) return socket.disconnect();
     else {
         jwt.verify(
@@ -60,9 +60,24 @@ io.on('connection', (socket) => {
                                 .to(documentId)
                                 .emit(SocketEvents.RECEIVE_CHANGES, rawEditorStateContent);
                         });
-
-
+                        //Disconnect Socket
+                        socket.on('disconnect', () => {
+                            socket.leave(documentId);
+                            io.in(documentId)
+                                .fetchSockets()
+                                .then((clients) => {
+                                    io.sockets.in(documentId).emit(
+                                        SocketEvents.CURRENT_USERS_UPDATE,
+                                        clients.map((client) => client.username)
+                                    )
+                                })
+                            socket.disconnect();
+                        });
                     })
+                    .catch(error => {
+                        console.log(error);
+                        return socket.disconnect();
+                    });
             })
     }
 })
