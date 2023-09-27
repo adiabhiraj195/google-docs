@@ -63,9 +63,9 @@ class DocumnetController {
         if (!req.user) return res.sendStatus(401);
 
         const { id } = req.params;
-        // console.log(id, req.user.id);
+        console.log(id, req.user.id);
         const document = await documentService.findDocumentById(parseInt(id), parseInt(req.user.id));
-        // console.log(document, "this is document")
+        console.log(document, "this is document")
         if (!document) return res.status(404);
 
         return res.status(200).json(document);

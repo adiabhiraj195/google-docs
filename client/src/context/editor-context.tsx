@@ -129,6 +129,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
             const rawContent = convertFromRaw(rawContentState);
             const newEditorState = EditorState.createWithContent(rawContent);
             setEditorState(newEditorState);
+            // console.log(newEditorState)
         }
 
         socket.current.on(SocketEvents.RECEIVE_CHANGES, receiveHandler);

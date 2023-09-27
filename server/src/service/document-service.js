@@ -32,8 +32,8 @@ class DocumentService {
             });
 
             if(!sharedDocument) return null;
-            // console.log(sharedDocument, "This is shared doc");
-            document = sharedDocument.document;
+            // console.log(sharedDocument[0].document, "This is shared doc");
+            document = sharedDocument[0].document;
         }
 
         return document;
