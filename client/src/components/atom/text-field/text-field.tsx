@@ -6,7 +6,8 @@ interface TextFieldProps {
     onInput: Function;
     type: 'text' | 'password' | 'email';
     placeholder?: string;
-    ref?: any
+    ref?: any;
+    focus?: boolean;
 }
 
 const TextField = ({
@@ -14,7 +15,8 @@ const TextField = ({
     onInput,
     type,
     placeholder,
-    ref
+    ref,
+    focus,
 }: TextFieldProps) => {
     const [borderColor, setBorderColor] = useState('gray');
     const [bgColor, setBgColor] = useState('');
@@ -29,6 +31,7 @@ const TextField = ({
                     placeholder={placeholder}
                     onInput={(e) => onInput((e.target as HTMLTextAreaElement).value)}
                     ref={ref}
+                    autoFocus={focus}
                     onFocus={() => { setBorderColor('rgb(0, 81, 255)'); setBgColor('rgba(0, 181, 252, 0.171)') }}
                     onBlur={() => { setBorderColor('gray'); setBgColor('') }}
                     style={{ borderColor: `${borderColor}`, backgroundColor: `${bgColor}` }}

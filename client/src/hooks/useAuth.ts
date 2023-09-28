@@ -1,11 +1,13 @@
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
 import jwtDecode from "jwt-decode";
-import { Token } from "../types/interface/token";
 import { useNavigate } from "react-router-dom";
+import useToast from "./useToast";
 
 const useAuth = () => {
     const navigate = useNavigate();
+    const { toastSuccess } = useToast();
+
     const {
         setAccessToken,
         setUserId,
@@ -45,7 +47,8 @@ const useAuth = () => {
             setEmail(null);
             setUserName(null);
             setIsAuthenticated(false);
-            navigate('/')
+            navigate('/');
+            toastSuccess('Loged out!')
         } catch (error) {
             console.log(error);
         } 

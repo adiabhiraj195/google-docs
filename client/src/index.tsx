@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { EditorProvider } from './context/editor-context';
 import { AuthProvider } from './context/authContext';
 import { DocumentProvider } from './context/document-context';
+import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,6 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <ToastContainer />
       <AuthProvider>
         <DocumentProvider>
           <EditorProvider>

@@ -4,8 +4,9 @@ import Logo from '../../atom/logo/logo';
 import { DocumentContext } from '../../../context/document-context';
 import useAuth from '../../../hooks/useAuth';
 import DocumentService from '../../../service/document-service';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import UserDropDown from '../../atom/user-drop-down/user-drop-down';
+import useToast from '../../../hooks/useToast';
 
 const DocumentMenuBar = () => {
     const { accessToken, userId } = useAuth();
@@ -16,6 +17,8 @@ const DocumentMenuBar = () => {
         setSaving,
         // setDocument,
     } = useContext(DocumentContext);
+    const { toastError } = useToast();
+
     const localAT = localStorage.getItem('Token');
     // const { id: docId } = useParams();
 
@@ -30,7 +33,7 @@ const DocumentMenuBar = () => {
             // await DocumentService.update(accessToken, document);
             await DocumentService.update(localAT, document);
         } catch (error) {
-            console.log(error);
+            toastError('Something went wrong with document.')
         } finally {
             setSaving(false);
         }
@@ -66,7 +69,7 @@ const DocumentMenuBar = () => {
             <div className='document-user-container'>
                 {/* add share users logo  */}
                 {/* add functionalty to share doc to registered user  */}
-                <UserDropDown/>
+                <UserDropDown />
             </div>
         </div>
     )

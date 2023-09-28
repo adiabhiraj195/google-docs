@@ -1,9 +1,11 @@
-import React, { FC, useState } from 'react';
+import { useState } from 'react';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
 import TextField from '../../components/atom/text-field/text-field';
 import logoImage from '../../assets/black-logo.png';
 import AuthService from "../../service/auth-service";
+import useToast from '../../hooks/useToast';
+import axios from 'axios';
 
 const Register = () => {
   const [fName, setFName] = useState<string>("");
@@ -11,20 +13,30 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const navigate = useNavigate();
+  const {
+    toastError,
+    toastSuccess,
+    toastWarning
+  } = useToast();
 
   const validateData: () => boolean = () => {
     let isValid: boolean = true;
 
-    // if (!(validator.isEmail(email))) {
-    //   isValid = false;
-    // }
+    if (!(validator.isEmail(email))) {
+      isValid = false;
+      toastWarning('Enter valid email!');
+      return isValid;
+    }
     if (!(password.length >= 8 && password.length <= 25)) {
       isValid = false;
+      toastWarning('Password length must be in range 8 to 25!');
+      return isValid;
     }
     if (password !== confirmPassword) {
       isValid = false;
+      toastWarning('Passwords are not matching');
+      return isValid;
     }
-
     return isValid;
   }
 
@@ -42,8 +54,18 @@ const Register = () => {
       });
 
       navigate("/");
+      toastSuccess(`Hi ${fName}! login here`)
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        const { response } = error;
+        if (response?.data.error.length > 0) {
+          toastError(response?.data.error);
+        } else {
+          toastError('An unknown error has occurred. Please try again');
+        }
+      } else {
+        toastError('An unknown error has occurred. Please try again');
+      }
     }
   }
 
@@ -59,7 +81,7 @@ const Register = () => {
   const handleInputConfirmPassword = (value: string) => {
     setConfirmPassword(value);
   }
-  const loginAccount = ()=>{
+  const loginAccount = () => {
     navigate('/');
   }
   return (
@@ -74,6 +96,7 @@ const Register = () => {
           value={fName}
           placeholder='Full Name'
           onInput={handleInputName}
+          focus={true}
         />
         <TextField
           type='email'

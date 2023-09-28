@@ -1,32 +1,40 @@
+import './login.css';
 import { useState } from 'react';
 import validator from 'validator';
 import TextField from '../../components/atom/text-field/text-field';
 import AuthService from '../../service/auth-service';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import './login.css';
 import logoImage from '../../assets/black-logo.png';
+import useToast from '../../hooks/useToast';
+import axios from 'axios';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const { login } = useAuth();
+    const {
+        toastSuccess,
+        toastWarning,
+        toastError
+    } = useToast();
 
     const validateData = () => {
         let isValid: boolean = true;
         if (!(validator.isEmail(email))) {
             isValid = false;
+            toastWarning('Enter valid email!');
         };
-        if (!(password.length >= 8 && password.length <= 24)) {
+        if (!(password.length >= 8 && password.length <= 25)) {
             isValid = false;
+            toastWarning('Password length must be in range 8 to 25!');
         };
         return isValid;
     }
 
     const userLogin = async () => {
         if (!validateData()) {
-            console.log("Details are not valid");
             return;
         }
         try {
@@ -34,16 +42,26 @@ const Login = () => {
                 email,
                 password
             });
-            // console.log(response);
+            console.log(response);
             await login(response.data.accessToken);
             localStorage.setItem('Token', response.data.accessToken);
 
             navigate("/document/create");
+            toastSuccess(`Successfully logged in!`);
         } catch (error) {
-            console.log(error)
+            if (axios.isAxiosError(error)) {
+                const { response } = error;
+                if (response?.data.error.length > 0) {
+                    toastError(response?.data.error);
+                } else {
+                    toastError('Incorrect Username or Password');
+                }
+            } else {
+                toastError('An unknown error has occured. Please try again.');
+            }
         }
+    };
 
-    }
     const createAccount = () => {
         navigate('/register');
     }
@@ -66,6 +84,8 @@ const Login = () => {
                     onInput={handleEmailInput}
                     type='email'
                     placeholder='Email'
+                    focus={true}
+
                 />
                 <div className='password-input-container'>
                     <TextField

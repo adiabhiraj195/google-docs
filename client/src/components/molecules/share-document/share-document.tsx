@@ -1,5 +1,5 @@
 import './share-document.css';
-import { useContext, useState, useRef, useEffect, MouseEvent } from 'react';
+import { useContext, useState, MouseEvent } from 'react';
 import { DocumentContext } from '../../../context/document-context';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FiSettings } from 'react-icons/fi';
@@ -10,6 +10,8 @@ import useAuth from '../../../hooks/useAuth';
 import DocumentUserService from '../../../service/document-user-service';
 import DocumentUserInterface from '../../../types/interface/document-user-interface';
 import DocumentInterface from '../../../types/interface/document-interface';
+import useToast from '../../../hooks/useToast';
+import axios from 'axios';
 
 interface ShareDocumentInterface {
     title: string;
@@ -21,6 +23,7 @@ const ShareDocument = ({
     const { setShareDocWindow, document, setSaving, setDocument } = useContext(DocumentContext);
     const [shareEmail, setShareEmail] = useState('');
     const { accessToken } = useAuth();
+    const { toastError, toastSuccess } = useToast();
 
     const shareDocument = async () => {
         if (shareEmail === '' ||
@@ -45,11 +48,22 @@ const ShareDocument = ({
                 ...document,
                 // users: document.users?.push(documentUser)
                 users: [...document.users, documentUser as DocumentUserInterface],
-            // } as unknown as DocumentInterface);
+                // } as unknown as DocumentInterface);
             } as DocumentInterface);
+            toastSuccess(`Document is shared to ${shareEmail}`)
         } catch (error) {
             console.log(error);
-        } finally{
+            if (axios.isAxiosError(error)) {
+                const { response } = error;
+                if (response?.data.error.length > 0) {
+                    toastError(response?.data.error);
+                } else {
+                    toastError("An unknown error has occured. Please try again.");
+                }
+            } else {
+                toastError("An unknown error has occured. Please try again.");
+            }
+        } finally {
             console.log(document);
             setSaving(false);
         }
