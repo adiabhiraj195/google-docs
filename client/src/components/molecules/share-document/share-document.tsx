@@ -44,24 +44,24 @@ const ShareDocument = ({
             const documentUser = response.data as DocumentUserInterface;
             // todo - set tost 
             console.log(documentUser, 'doc user from server');
+            toastSuccess(`Document is shared to ${shareEmail}`);
             setDocument({
                 ...document,
                 // users: document.users?.push(documentUser)
                 users: [...document.users, documentUser as DocumentUserInterface],
                 // } as unknown as DocumentInterface);
             } as DocumentInterface);
-            toastSuccess(`Document is shared to ${shareEmail}`)
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error)) {
                 const { response } = error;
-                if (response?.data.error.length > 0) {
-                    toastError(response?.data.error);
-                } else {
+                console.log(response)
+                if (response?.data.errors?.length > 0) {
+                    toastError(response?.data.errors[0].msg);
+                }
+                else {
                     toastError("An unknown error has occured. Please try again.");
                 }
-            } else {
-                toastError("An unknown error has occured. Please try again.");
             }
         } finally {
             console.log(document);

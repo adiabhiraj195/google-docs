@@ -29,13 +29,14 @@ io.on('connection', (socket) => {
     console.log('connected to frontend');
     const accessToken = socket.handshake.query.accessToken;
     const documentId = socket.handshake.query.documentId;
-
+    // console.log(accessToken, 'accsToken')
     if (!accessToken || !documentId) return socket.disconnect();
     else {
         jwt.verify(
             accessToken,
             process.env.ACCESS_TOKEN_SECRET,
             (err, decoded) => {
+                console.log(decoded);
                 const { id, email } = decoded.user;
 
                 socket.username = email;

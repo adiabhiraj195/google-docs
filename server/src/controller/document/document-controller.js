@@ -67,7 +67,7 @@ class DocumnetController {
         const document = await documentService.findDocumentById(parseInt(id), parseInt(req.user.id));
         console.log(document, "this is document")
         if (!document) return res.status(404);
-
+        // console.log(document, "getDocument");
         return res.status(200).json(document);
     }
     deleteDoc = async (req, res) => {
@@ -77,7 +77,6 @@ class DocumnetController {
         await db.DocumentUser.destroy({
             where: {
                 documentId: id,
-                userId: req.user?.id,
             },
         });
         await db.Document.destroy({

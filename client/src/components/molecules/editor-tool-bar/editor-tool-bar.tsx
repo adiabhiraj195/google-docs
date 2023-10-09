@@ -24,6 +24,7 @@ const EditorToolBar = () => {
   const handleShareBtn = () => {
     setShareDocWindow(true);
   }
+  // console.log(document)
   return (
     <div className='editor-tool-bar'>
       <div className='undo-redo-wrap'>

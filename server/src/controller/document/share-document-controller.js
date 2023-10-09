@@ -10,13 +10,26 @@ class ShareDocumentController {
         if (!(err.isEmpty())) return res.status(400).json(err);
 
         const { id } = req.params;
+        const { email, permission } = req.body;
+
+        const isShared = await db.DocumentUser.findOne({
+            where: {
+                documentId: id,
+                email: email
+            }
+        });
+        if (isShared) {
+            const msg = {
+                msg: "Allready shared"
+            };
+            return res.status(400).json({ errors: [msg] });
+        }
 
         const document = await db.Document.findByPk(id);
         if (document.userId !== parseInt(req.user.id)) {
             return res.status(400);
         }
 
-        const { email, permission } = req.body;
         const sharedUser = await db.User.findOne({
             where: {
                 email,
