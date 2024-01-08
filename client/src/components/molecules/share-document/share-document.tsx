@@ -79,6 +79,16 @@ const ShareDocument = ({
     const handleEmailInpute = (value: string) => {
         setShareEmail(value);
     }
+
+    const copyUrl = () => {
+        const el = window.document.createElement('input');
+        el.value = window.location.href;
+        window.document.body.appendChild(el);
+        el.select();
+        window.document.execCommand('copy');
+        window.document.body.removeChild(el);
+    }
+    
     return (
         <div className='share-document-bg'>
             <div className='share-document-container' >
@@ -105,7 +115,7 @@ const ShareDocument = ({
                         </div>
                     </div>
                     <div className='share-btn-wrap'>
-                        <button className='auth-btn base-bg-btn'>Copy link</button>
+                        <button className='auth-btn base-bg-btn' onClick={copyUrl}>Copy link</button>
                         <button className='auth-btn blue-bg-btn' onClick={shareDocument}>Share</button>
                     </div>
                 </div>

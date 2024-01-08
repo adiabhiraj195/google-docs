@@ -24,9 +24,9 @@ const defaultValues = {
     setSaving: () => { },
     saveDocument: async () => { },
     shareDocWindow: false,
-    setShareDocWindow: ()=>{},
+    setShareDocWindow: () => { },
     currentUsers: new Set<string>(),
-    setCurrentUsers: ()=>{},
+    setCurrentUsers: () => { },
 }
 
 export const DocumentContext = createContext<DocumentContextInterface>(defaultValues);
