@@ -42,7 +42,8 @@ const useAuth = () => {
         if(accessToken === null && localAT === null) return;
         try {
             setAccessToken(null);
-            localStorage.clear();
+            // localStorage.clear();
+            localStorage.removeItem("Token");
             setUserId(null);
             setEmail(null);
             setUserName(null);

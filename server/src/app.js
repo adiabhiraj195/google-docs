@@ -10,7 +10,7 @@ const app = express();
 app.use(morgan("combined"));
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONT_END_URL,
 }));
 
 app.use(router);
