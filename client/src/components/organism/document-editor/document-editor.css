@@ -1,0 +1,23 @@
+.document-editor-container{
+    /* width: 100%; */
+    background-color: rgb(245, 245, 245);
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* padding: 15px 150px; */
+    height: 100vh;
+}
+/* .editor-wrap{
+    border: 1px solid lightgray;
+    min-height: 500px;
+    width: 700px;
+    min-width: 500px;
+    background: white;
+    padding: 40px 36px;
+    border-radius: 10px;
+} */
+.editor{
+    height:100%;
+    width: 100%;
+    /* padding: 0px 20px; */
+}

@@ -1,0 +1,17 @@
+.document-create-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    padding: 8px 20px;
+}
+.create-logo-container{
+    display: flex;
+    align-items: center;
+}
+.create-logo-container> h3{
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: rgb(97, 97, 97);
+    margin-left: 6px;
+}
